@@ -117,8 +117,23 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(response, parse_mode="Markdown")
 
 def main():
+    # 🔍 Диагностика: проверяем, видит ли Python переменные
+    token = os.environ.get('TELEGRAM_TOKEN')
+    sheet_id = os.environ.get('SPREADSHEET_ID')
+    
+    print("🔧 TELEGRAM_TOKEN задан:", token is not None)
+    print("🔧 Длина токена:", len(token) if token else 0)
+    print("🔧 SPREADSHEET_ID задан:", sheet_id is not None)
+    
+    if not token:
+        print("❌ ОШИБКА: TELEGRAM_TOKEN не найден в переменных окружения!")
+        return
+    if len(token) < 30:
+        print(f"❌ ОШИБКА: Токен слишком короткий: '{token}'")
+        return
+
     logging.basicConfig(level=logging.INFO)
-    app = Application.builder().token(TELEGRAM_TOKEN).build()
+    app = Application.builder().token(token).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     print("🚀 Бот запущен")
