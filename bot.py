@@ -101,7 +101,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 Привет! Я бот-куратор ВСП.\n\n"
         "Отправьте:\n"
-        "• Код ВСП — например, `8369/069`\n"
+        "• Код ВСП — например, `8647/06001`\n"
         "• Или город — например, `Салехард`\n\n"
         "Я найду куратора и контакты!",
         parse_mode="Markdown"
@@ -135,8 +135,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             
         text = update.message.text.strip()
 
-        # Поиск по ВСП
-        vsp_match = re.search(r'\b(\d{4}/\d{3,4})\b', text)  # Уточненное регулярное выражение
+        # ИСПРАВЛЕННОЕ регулярное выражение для поиска ВСП
+        # Ищет форматы: 8647/06001, 8598/00792, 5940/06052 и т.д.
+        vsp_match = re.search(r'\b(\d{4}/\d{3,5})\b', text)  # От 3 до 5 цифр после слэша
         if vsp_match:
             vsp = vsp_match.group(1)
             record = vsp_map.get(vsp)
@@ -164,7 +165,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if not records:
             await update.message.reply_text(
                 f"❌ Не найдено кураторов по запросу «{text}».\n"
-                "Попробуйте: *Салехард*, *8369/069*",
+                "Попробуйте: *Салехард*, *8647/06001*",
                 parse_mode="Markdown"
             )
             return
