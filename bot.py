@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
 # === НАСТРОЙКИ ===
-TELEGRAM_TOKEN = os.environ.get('8459410209:AAEjnWq7LPdfX8Cgi8qVnHiPN9Tkn-QieFw')
+TELEGRAM_TOKEN = os.environ.get('8459410209:AAFjRHJhMOkcvtLOgQbH8s7eqLNRtkFy1r4')
 SPREADSHEET_ID = os.environ.get('1dAPn19W8fxhkFw_tjEpuOJne91pU1Oyt97ycHSSlvbU')
 RANGE_NAME = 'Data!A:E'
 
