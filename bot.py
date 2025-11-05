@@ -8,6 +8,40 @@ from googleapiclient.discovery import build
 from flask import Flask
 import threading
 
+import requests
+import time
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return 'Dashboard is running!'
+
+# === ДОБАВЬТЕ ЭТОТ КОД ===
+
+def keep_alive():
+    def ping():
+        while True:
+            try:
+                # Автоматическое определение URL на Render
+                url = os.environ.get('RENDER_EXTERNAL_URL', 'https://your-app-name.onrender.com')
+                response = requests.get(url)
+                print(f"Self-ping successful at {time.strftime('%Y-%m-%d %H:%M:%S')}")
+            except Exception as e:
+                print(f"Self-ping failed: {e}")
+            time.sleep(300)  # 5 минут
+    
+    thread = threading.Thread(target=ping)
+    thread.daemon = True
+    thread.start()
+
+# === ВЫЗОВИТЕ ПРИ ЗАПУСКЕ ===
+
+if __name__ == '__main__':
+    keep_alive()  # ← Запускаем самопинг
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
 # === НАСТРОЙКИ ===
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN')
 SPREADSHEET_ID = os.environ.get('SPREADSHEET_ID')
