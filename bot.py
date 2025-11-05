@@ -144,8 +144,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             if record:
                 city_part = f" г. {record['city']}" if record['city'] else ''
                 response = (
-                    f"✅ **ВСП {vsp}{city_part}**\n\n"
-                    f"👤 **{record['fio']}**\n"
+                    f"👌 **ВСП {vsp}{city_part}**\n\n"
+                    f"🧑 **{record['fio']}**\n"
                     f"📞 **Контакт:** {record['contact'] or 'не указан'}\n"
                     f"📱 **Мобильный:** {record['mobile'] or 'не указан'}"
                 )
@@ -174,8 +174,8 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             r = records[0]
             city_part = f" г. {r['city']}" if r['city'] else ''
             response = (
-                f"✅ **ВСП {r['vsp']}{city_part}**\n\n"
-                f"👤 **{r['fio']}**\n"
+                f"👌 **ВСП {r['vsp']}{city_part}**\n\n"
+                f"🧑 **{r['fio']}**\n"
                 f"📞 **Контакт:** {r['contact'] or 'не указан'}\n"
                 f"📱 **Мобильный:** {r['mobile'] or 'не указан'}"
             )
