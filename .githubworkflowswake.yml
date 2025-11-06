@@ -1,0 +1,12 @@
+name: Wake Render
+on:
+  schedule:
+    - cron: '*/14 * * * *'  # каждые 14 минут
+  workflow_dispatch:
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Waking up Render..."
+          curl -fsSL https://vserosinkas-star.onrender.com/health || echo "Failed"
